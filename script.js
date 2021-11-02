@@ -19,4 +19,47 @@ const addWordToList = () => {
 	inputItem.value = '';
 };
 
+const deleteWordItem = (e) => {
+	e.target.parentElement.parentElement.remove();
+};
+
+const searchWord = async (e) => {
+	const word = e.target.parentElement.parentElement.textContent;
+	const requestOptions = {
+		method: 'GET',
+		redirect: 'follow',
+	};
+
+	await fetch(
+		`https://api.dictionaryapi.dev/api/v2/entries/en_US/${word}`,
+		requestOptions
+	)
+		.then((response) => response.json())
+		.then((result) => {
+			result.map((item) => {
+				item.meanings.map((item) => {
+					item.definitions.map((item) => {
+						console.log(item.definition);
+						return item.definition;
+					});
+				});
+			});
+		})
+		.catch((error) => console.log('error', error));
+};
+
 addBtn.addEventListener('click', addWordToList);
+inputItem.addEventListener('keypress', (e) => {
+	if (e.keyCode == 13) {
+		addWordToList();
+	}
+});
+wordList.addEventListener('click', (e) => {
+	if (e.target.className == 'fas fa-trash-alt') {
+		deleteWordItem(e);
+	}
+
+	if (e.target.className == 'fas fa-search') {
+		searchWord(e);
+	}
+});
