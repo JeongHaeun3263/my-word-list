@@ -130,3 +130,49 @@ ul {
 .icon-container i {
 	cursor: pointer;
 }
+
+/* Modal */
+.word-modal {
+	display: none;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: var(--color-dark-blue);
+}
+.word-modal.show {
+	display: block;
+}
+
+.definition-list {
+	padding: 20.6rem;
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+}
+
+.definition-item {
+	margin-bottom: 2.4rem;
+	font-size: 2.4rem;
+	color: var(--color-white);
+}
+
+.list-icon {
+	display: inline-block;
+	font-size: 3.6rem;
+	color: var(--color-white);
+}
+
+.close-btn {
+	font-size: 3.6rem;
+	cursor: pointer;
+	margin-bottom: 10px;
+}
+
+.close-btn i {
+	position: fixed;
+	top: 10px;
+	color: var(--color-white);
+	top: 2rem;
+	right: 2rem;
+}

@@ -1,6 +1,9 @@
 const inputItem = document.getElementById('input-word');
 const wordList = document.querySelector('.word-list');
 const addBtn = document.getElementById('add-word-btn');
+const modal = document.querySelector('.word-modal');
+const definitionList = document.querySelector('.definition-list');
+const closeBtn = document.querySelector('.close-btn');
 
 const addWordToList = () => {
 	const wordItem = document.createElement('li');
@@ -23,6 +26,14 @@ const deleteWordItem = (e) => {
 	e.target.parentElement.parentElement.remove();
 };
 
+const showWordModal = () => {
+	modal.classList.add('show');
+};
+
+const closeModal = () => {
+	modal.classList.remove('show');
+};
+
 const searchWord = async (e) => {
 	const word = e.target.parentElement.parentElement.textContent;
 	const requestOptions = {
@@ -40,7 +51,13 @@ const searchWord = async (e) => {
 				item.meanings.map((item) => {
 					item.definitions.map((item) => {
 						console.log(item.definition);
-						return item.definition;
+						const definitionItem = document.createElement('li');
+						const listIcon = document.createElement('i');
+						definitionItem.classList.add('definition-item');
+						definitionItem.textContent = item.definition;
+						listIcon.classList.add('fas', 'fa-check-square', 'list-icon');
+						definitionList.appendChild(listIcon);
+						definitionList.appendChild(definitionItem);
 					});
 				});
 			});
@@ -61,5 +78,7 @@ wordList.addEventListener('click', (e) => {
 
 	if (e.target.className == 'fas fa-search') {
 		searchWord(e);
+		showWordModal();
 	}
 });
+closeBtn.addEventListener('click', closeModal);
